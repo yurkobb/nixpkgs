@@ -3,11 +3,11 @@
 
 stdenv.mkDerivation rec {
   name = "gnome-mines-${version}";
-  version = "3.28.0";
+  version = "3.30.1";
 
   src = fetchurl {
     url = "mirror://gnome/sources/gnome-mines/${gnome3.versionBranch version}/${name}.tar.xz";
-    sha256 = "16w55hqaxipcv870n9gpn6qiywbqbyg7bjshaa02r75ias8dfxvf";
+    sha256 = "0bnnvmi27gz6m7kh5v96si2ih04jxc6myn0xzs6ch12jr7nc4wvi";
   };
 
   # gobjectIntrospection for finding vapi files
