@@ -1,6 +1,6 @@
 { stdenv, mkDerivation, fetchurl, cmake, pkgconfig, alsaLib
 , libjack2, libsndfile, fftw, curl, gcc
-, libXt, qtbase, qttools, qtwebengine
+, libXt, qtbase, qttools, qtwebengine, makeFontsConf
 , readline, qtwebsockets, useSCEL ? false, emacs
 }:
 
@@ -32,6 +32,15 @@ mkDerivation rec {
     gcc libjack2 libsndfile fftw curl libXt qtbase qtwebengine qtwebsockets readline ]
       ++ optional (!stdenv.isDarwin) alsaLib
       ++ optional useSCEL emacs;
+
+  fontsConf = makeFontsConf { fontDirectories = [ ]; };
+
+  postFixup = ''
+    for program in sclang scide; do
+      wrapProgram $out/bin/$program \
+        --set FONTCONFIG_FILE "${fontsConf}"
+    done
+  '';
 
   meta = with stdenv.lib; {
     description = "Programming language for real time audio synthesis";
