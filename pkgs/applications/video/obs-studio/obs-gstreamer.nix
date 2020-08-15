@@ -23,6 +23,11 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ meson ninja pkgconfig ];
   buildInputs = [ obs-studio gstreamer gst-plugins-base ];
 
+  preFixup = ''
+    makeWrapper ${obs-studio}/bin/obs $out/bin/obs-gs \
+      --set GST_PLUGIN_SYSTEM_PATH_1_0=${gst-plugins-base}/lib:${gstreamer}/lib
+  '';
+
   meta = with lib; {
     description = "GStreamer OBS Studio plugin";
     homepage = "https://github.com/fzwoch/obs-gstreamer";
